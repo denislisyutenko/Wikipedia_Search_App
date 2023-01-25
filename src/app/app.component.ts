@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {WikiService} from './wiki.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app-wiki-search';
+  items: any[] = [];
+
+  constructor(private wiki: WikiService) {
+  }
+
+  search(text: string): void {
+    this.wiki.searchWiki(text).subscribe(res => {
+      this.items = res;
+    });
+  }
 }
